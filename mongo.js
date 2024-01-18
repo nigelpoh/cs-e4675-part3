@@ -7,8 +7,7 @@ if (process.argv.length<3) {
 
 const password = process.argv[2]
 
-const url =
-  `mongodb://admin:${password}@SG-boiled-stag-9635-61061.servers.mongodirector.com:27017/phonebook?authSource=admin`
+const url = `mongodb://admin:${password}@SG-boiled-stag-9635-61061.servers.mongodirector.com:27017/phonebook?authSource=admin`
 mongoose.set('strictQuery',false)
 mongoose.connect(url)
 mongoose.connection.useDb('phonebook')
@@ -20,23 +19,23 @@ const personSchema = new mongoose.Schema({
 
 const Person = mongoose.model('Person', personSchema)
 
-if (process.argv.length == 3) {
-    Person.find({}).then(result => {
-        console.log("phonebook:")
-        result.forEach(p => {
-          console.log(`${p.name} ${p.number}`)
-        })
-        mongoose.connection.close()
+if (process.argv.length === 3) {
+  Person.find({}).then(result => {
+    console.log('phonebook:')
+    result.forEach(p => {
+      console.log(`${p.name} ${p.number}`)
     })
-} else if (process.argv.length == 5) {
-    const person = new Person({
-        name: process.argv[3],
-        number: process.argv[4]
-    })
-    person.save().then(result => {
-        console.log(`added ${person.name} number ${person.number} to phonebook`)
-        mongoose.connection.close()
-    })
-} else {
     mongoose.connection.close()
+  })
+} else if (process.argv.length === 5) {
+  const person = new Person({
+    name: process.argv[3],
+    number: process.argv[4]
+  })
+  person.save().then(() => {
+    console.log(`added ${person.name} number ${person.number} to phonebook`)
+    mongoose.connection.close()
+  })
+} else {
+  mongoose.connection.close()
 }
