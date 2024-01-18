@@ -14,7 +14,6 @@ mongoose.connect(url)
 mongoose.connection.useDb('phonebook')
 
 const personSchema = new mongoose.Schema({
-  id: Number,
   name: String,
   number: String,
 })
@@ -31,7 +30,6 @@ if (process.argv.length == 3) {
     })
 } else if (process.argv.length == 5) {
     const person = new Person({
-        id: Math.floor(Math.random() * 1e7),
         name: process.argv[3],
         number: process.argv[4]
     })
